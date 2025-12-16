@@ -16,15 +16,24 @@ export async function generateMetadata({
 }: NotesPageProps): Promise<Metadata> {
   const { slug } = await params;
 
-  const tag = slug?.[0] === "all" ? "All notes" : slug?.[0];
+  // const tag = slug?.[0] === "all" ? "All notes" : slug?.[0];
+  const isAll = slug?.[0] === "all";
 
-  const title = tag
-    ? `Notes filtered by "${tag}" | NoteHub`
-    : "All notes | NoteHub";
+  const tag = isAll ? null : slug?.[0];
 
-  const description = tag
-    ? `Browse notes filtered by "${tag}" in NoteHub.`
-    : "Browse all your notes in NoteHub.";
+  // const title = tag
+  //   ? `Notes filtered by "${tag}" | NoteHub`
+  //   : "All notes | NoteHub";
+  const title = isAll
+    ? "All notes | NoteHub"
+    : `Notes filtered by "${tag}" | NoteHub`;
+
+  // const description = tag
+  //   ? `Browse notes filtered by "${tag}" in NoteHub.`
+  //   : "Browse all your notes in NoteHub.";
+  const description = isAll
+    ? "Browse all your notes in NoteHub."
+    : `Browse notes filtered by "${tag}" in NoteHub.`;
 
   const url = `https://08-zustand-olive-one.vercel.app/notes/filter/${slug?.join(
     "/"
