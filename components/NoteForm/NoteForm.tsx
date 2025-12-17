@@ -1,3 +1,5 @@
+"use client";
+
 import { createNote } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { CreateNoteData, NoteTag } from "@/types/note";
