@@ -3,11 +3,19 @@
 import { createNote } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { CreateNoteData, NoteTag } from "@/types/note";
+import { useNoteStore, initialDraft } from "@/lib/store/noteStore";
+import { useEffect, useState } from "react";
 
 import css from "./NoteForm.module.css";
 
 export default function NoteForm() {
   const router = useRouter();
+  const { draft, setDraft, clearDraft } = useNoteStore();
+  // const [formValues, setFormValues] = useState(initialDraft);
+
+  // useEffect(() => {
+  //   setFormValues(draft ?? initialDraft);
+  // }, [draft]);
 
   const handleCancel = () => router.back();
 
@@ -34,6 +42,7 @@ export default function NoteForm() {
           type="text"
           name="title"
           className={css.input}
+          value={draft.title}
           required
           minLength={3}
           maxLength={50}
@@ -48,13 +57,14 @@ export default function NoteForm() {
           name="content"
           rows={8}
           className={css.textarea}
+          value={draft.content}
         />
         <span className={css.error} />
       </div>
 
       <div className={css.formGroup}>
         <label htmlFor="tag">Tag</label>
-        <select id="tag" name="tag" className={css.select} defaultValue="Todo">
+        <select id="tag" name="tag" className={css.select} value={draft.tag}>
           <option value="Todo">Todo</option>
           <option value="Work">Work</option>
           <option value="Personal">Personal</option>
