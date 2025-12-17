@@ -52,12 +52,14 @@ export default function NotesClient({ tag }: NotesClientProps) {
           Create note +
         </Link>
       </header>
-      <NoteList
-        notes={data?.notes ?? []}
-        isLoading={isLoading}
-        isError={isError}
-        error={error}
-      />
+      {data?.notes.length ? (
+        <NoteList
+          notes={data.notes}
+          isLoading={isLoading}
+          isError={isError}
+          error={error}
+        />
+      ) : null}
     </div>
   );
 }
